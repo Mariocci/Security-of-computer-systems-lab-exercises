@@ -1,0 +1,12 @@
+Podaci se spremaju u .txt datoteku. Prilikom inicijalizacije se navodi samo ime datoteke, zatim se treba spremiti prvi par adresa, zaporka u bazu.
+Podaci se spremaju s navedenim master passwordom, on je ključan za sve, nigdje se ne sprema u bazu.
+Sustav preko master passworda i nasumičnog salt-a derivira ključ za svaki par adresa i zaporki. 
+S deriviranim ključem i nasumičnim inicijalizacijskim vektorom se kriptiraju podaci u obliku adresa|zaporka|hash(adresa|zaporka).
+na kriptirane podatke se na kraju dodaje salt i IV koji su fiksne duljine (16 B i 12 B). Takav zapis se kodira s Base64 i zapisuje u bazu.
+Za derivaciju ključa koristi se algoritam "PBKDF2WithHmacSHA256", a za kriptiranje AES u modu GCM.
+Svaki par je kriptiran s vlastitim vektorom koji se uvijek mijenja, isto vrijedi i kod derivacije ključa, stoga i ako se zaporka zamijeni s istom, zapis će biti drukčiji.
+Zaporka se dohvaća tako da se linija dekodira iz Base64, zatim se uzima salt i IV s kraja pročitanih podataka, te se ako je unesena ispravna glavna zaporka (master password) 
+derivira ispravan simetrični ključ s kojim se zajedno sa zapisanim IV-om dekriptiraju podaci, 
+zatim se usporedi hash s dekriptiranim podacima kako bi se osigurao dodatno integritet svega.
+Ako ima više zapisanih zaporki, sustav čita linije i traži koju je moguće dekriptirati s danim podacima, ako postoji takva linija, vraća password za danu adresu.
+Postavili se nova (ili ista) zaporka za postojeću adresu, onda se briše prethodni zapis i stavlja novi u datoteku.
