@@ -1,0 +1,6 @@
+Pomoću alata usermgmt možemo dodavati nove korisnikeu sustav, također se korisnicima može promijeniti lozinka, ili postaviti zhastavicu da prilikom sljedećeg logiranja moraju promijeniti lozinku.
+Lozinke moraju biti duže od 10 znakova te sadržavati barem 1 veliko i malo slovo, barem jedan broj te barem 1 znak. Postavljeno je ograničenje da se ne može prilikom promijene lozinke staviti stara lozinka.
+Ovime smo pokrili potrebe kompleksnosti lozinki. Potrebe učestale promijene zadovoljili smo s omogućavanjem adminu da forsira korisnike na promjenu lozinki. 
+Lozinke se ne spremaju izravno već se hashiraju s nasumičnim saltom, koji se mijenja pri svakoj promjeni lozinke.
+Tijekom unosa lozinke na ekranu nije moguće vidjeti što se upisuje. Lozinka se može pogrešno unijeti 3 puta, nakon toga se izlazi iz programa. Time spriječavamo pogađanje
+U sustavu nema nikakvog prijenosa lozinki stoga nije potrebno raditi nešto u toj domeni. Za pogrešnu lozinku i username dobija se ista poruke, stoga napadač ne može odrediti je li postoji takav username u bazi ili ne.

@@ -1,0 +1,9 @@
+Usermgmt upute:
+Baza podataka se inicijalizira s: java usermgmt init <name>
+dodavanje korisnika: java add <database> <username>
+brisanje korisnika: java del <database> <username>
+promjena lozinke korisniku: java passwd <database> <username>
+forsiranje promjene lozinke: java forcepass <database> <username>
+
+Login upute:
+login: java login <database> <username>
